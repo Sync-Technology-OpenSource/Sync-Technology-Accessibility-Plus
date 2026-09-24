@@ -1,3 +1,5 @@
+let currentUtterance = null;
+
 // Écouteur de messages venant de la popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "toggle-contrast") {
@@ -29,6 +31,41 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             'accessibility-dyslexic'
         );
         document.documentElement.style.fontSize = '';
+        window.speechSynthesis.cancel();
     }
+    
+    // Fonctionnalité Audio (Text-to-Speech)
+    if (request.action === "read-page") {
+        window.speechSynthesis.cancel(); // Arrête toute lecture en cours
+        
+        // Récupère le texte pertinent de la page (titres, paragraphes, listes)
+        const textElements = document.querySelectorAll('h1, h2, h3, p, li');
+        let textToRead = "";
+        
+        textElements.forEach(el => {
+            if (el.offsetParent !== null) { // Vérifie que l'élément est visible à l'écran
+                textToRead += el.innerText + ". ";
+            }
+        });
+
+        if (textToRead.trim() === "") {
+            textToRead = document.body.innerText; // Fallback sur tout le texte si besoin
+        }
+
+        currentUtterance = new SpeechSynthesisUtterance(textToRead);
+        currentUtterance.lang = 'fr-FR'; // Définit la langue en français
+        currentUtterance.rate = 1.0; // Vitesse de lecture normale
+
+        window.speechSynthesis.speak(currentUtterance);
+        sendResponse({ status: "reading" });
+        return;
+    }
+
+    if (request.action === "stop-audio") {
+        window.speechSynthesis.cancel();
+        sendResponse({ status: "stopped" });
+        return;
+    }
+
     sendResponse({ status: "success" });
 });

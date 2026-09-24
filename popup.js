@@ -78,3 +78,18 @@ document.getElementById('btn-reset').addEventListener('click', () => {
 
     sendAction('reset-all');
 });
+
+const btnReadPage = document.getElementById('btn-read-page');
+const btnStopAudio = document.getElementById('btn-stop-audio');
+
+btnReadPage.addEventListener('click', () => {
+    sendAction('read-page');
+    btnReadPage.style.display = 'none';
+    btnStopAudio.style.display = 'flex';
+});
+
+btnStopAudio.addEventListener('click', () => {
+    sendAction('stop-audio');
+    btnStopAudio.style.display = 'none';
+    btnReadPage.style.display = 'flex';
+});
