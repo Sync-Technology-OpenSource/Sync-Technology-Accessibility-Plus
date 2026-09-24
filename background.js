@@ -9,3 +9,8 @@ chrome.commands.onCommand.addListener((command) => {
         }
     });
 });
+
+// Optionnel : s'assure que le contenu s'exécute ou synchronise le stockage global si nécessaire
+chrome.runtime.onInstalled.addListener(() => {
+    console.log("Extension Sync Technology - Accessibility Plus installée et prête pour tous les sites.");
+});

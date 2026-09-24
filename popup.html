@@ -9,15 +9,16 @@
             --st-blue-primary: #00A8FF;
             --bg: #0f172a;
             --card-bg: #1e293b;
+            --card-hover: #334155;
             --text: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
         }
 
         body {
-            width: 280px;
+            width: 290px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 14px;
+            padding: 12px;
             margin: 0;
             background: var(--bg);
             color: var(--text);
@@ -27,14 +28,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border);
         }
 
         .header img {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             object-fit: contain;
         }
 
@@ -51,11 +52,48 @@
             font-size: 11px;
         }
 
+        /* Navigation par onglets */
+        .tabs {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 6px;
+            padding: 3px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 0;
+        }
+
+        .tab-btn.active {
+            background: var(--st-blue-primary);
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .section-title {
             font-size: 10px;
             font-weight: 700;
             color: var(--st-blue-primary);
-            margin: 10px 0 6px 0;
+            margin: 8px 0 4px 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -73,7 +111,7 @@
             justify-content: space-between;
             font-size: 11px;
             font-weight: 500;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--text);
         }
 
@@ -89,7 +127,7 @@
             color: var(--text);
             border: 1px solid var(--border);
             border-radius: 4px;
-            padding: 6px;
+            padding: 5px;
             font-size: 11px;
             cursor: pointer;
         }
@@ -97,12 +135,12 @@
         button {
             width: 100%;
             margin-bottom: 6px;
-            padding: 8px 10px;
+            padding: 7px 10px;
             cursor: pointer;
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             color: var(--text);
             display: flex;
@@ -115,6 +153,44 @@
             background: #2563eb;
             border-color: var(--st-blue-primary);
             color: #ffffff;
+        }
+
+        /* Cartes de profils */
+        .profile-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 10px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .profile-card:hover {
+            border-color: var(--st-blue-primary);
+            background: var(--card-hover);
+        }
+
+        /* Style pour le profil actif */
+        .profile-card.active {
+            border: 2px solid var(--st-blue-primary) !important;
+            background: var(--card-hover) !important;
+            box-shadow: 0 0 10px rgba(0, 168, 255, 0.2);
+        }
+
+        .profile-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .profile-desc {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
         }
 
         #btn-reset {
@@ -143,48 +219,107 @@
         </div>
     </div>
 
-    <div class="section-title">Visibilité & Confort</div>
-    <button id="btn-contrast"><span>🌓</span> Mode Contraste</button>
-    <button id="btn-underline"><span>🔗</span> Souligner les liens</button>
-    <button id="btn-dyslexic"><span>📖</span> Police Dyslexique</button>
+    <!-- Barre d'onglets -->
+    <div class="tabs">
+        <button class="tab-btn active" id="btn-tab-manual">🛠️ Sur-mesure</button>
+        <button class="tab-btn" id="btn-tab-profiles">⭐ Profils types</button>
+    </div>
 
-    <div class="section-title">Ajustements Avancés</div>
+    <!-- ONGLET 1 : Réglages manuels -->
+    <div id="tab-manual" class="tab-content active">
+        <div class="section-title">Visibilité & Confort</div>
+        <button id="btn-contrast"><span>🌓</span> Mode Contraste</button>
+        <button id="btn-underline"><span>🔗</span> Souligner les liens</button>
+        <button id="btn-dyslexic"><span>📖</span> Police Dyslexique</button>
 
-    <div class="control-group">
-        <div class="control-label">
-            <span>Taille du texte</span>
-            <span id="text-size-value">100%</span>
+        <div class="section-title">Ajustements Avancés</div>
+        <div class="control-group">
+            <div class="control-label">
+                <span>Taille du texte</span>
+                <span id="text-size-value">100%</span>
+            </div>
+            <input type="range" id="range-text-size" min="100" max="180" step="10" value="100">
         </div>
-        <input type="range" id="range-text-size" min="100" max="180" step="10" value="100">
-    </div>
 
-    <!-- Bouton pour activer le curseur -->
-    <button id="btn-toggle-cursor"><span>🖱️</span> Activer le curseur XXL</button>
+        <button id="btn-toggle-cursor"><span>🖱️</span> Activer le curseur XXL</button>
 
-    <!-- Conteneur des tailles qui s'affiche dynamiquement -->
-    <div class="control-group" id="cursor-options-container" style="display: none;">
-        <div class="control-label">
-            <span>Taille du curseur</span>
+        <div class="control-group" id="cursor-options-container" style="display: none;">
+            <div class="control-label">
+                <span>Taille du curseur</span>
+            </div>
+            <select id="select-cursor-size">
+                <option value="lg">Grand (L)</option>
+                <option value="xl">Très Grand (XL)</option>
+                <option value="xxl" selected>XXL (Maximum)</option>
+            </select>
         </div>
-        <select id="select-cursor-size">
-            <option value="lg">Grand (L)</option>
-            <option value="xl">Très Grand (XL)</option>
-            <option value="xxl" selected>XXL (Maximum)</option>
-        </select>
-    </div>
-    <div class="section-title">Audio & Assistance</div>
-    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-        <button id="btn-read-page" style="flex: 2;"><span>🔊 Lire la page</span></button>
-        <select id="select-speech-rate"
-            style="flex: 1; background: var(--st-bg-card); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px;">
-            <option value="0.75">0.75x</option>
-            <option value="1.0" selected>1.0x</option>
-            <option value="1.25">1.25x</option>
-            <option value="1.5">1.5x</option>
-        </select>
-    </div>
-    <button id="btn-reset">🔄 Réinitialiser tout</button>
 
+        <div class="section-title">Lecture & Espacement</div>
+        
+        <div class="control-group">
+            <div class="control-label">
+                <label for="select-line-height">Interlignage</label>
+            </div>
+            <select id="select-line-height">
+                <option value="normal">Normal</option>
+                <option value="1.5">Moyen (1.5)</option>
+                <option value="2.0">Large (2.0)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="select-letter-spacing">Espacement des lettres</label>
+            </div>
+            <select id="select-letter-spacing">
+                <option value="normal">Normal</option>
+                <option value="1px">Large (1px)</option>
+                <option value="2px">Très large (2px)</option>
+            </select>
+        </div>
+
+        <button id="btn-toggle-focus"><span>🔍</span> Surligner le focus clavier</button>
+
+        <!-- Lecture vocale -->
+        <div class="section-title">Audio & Assistance</div>
+        <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+            <button id="btn-read-page" style="flex: 2; margin-bottom: 0;"><span>🔊 Lire la page</span></button>
+            <select id="select-speech-rate" style="flex: 1;">
+                <option value="0.75">0.75x</option>
+                <option value="1.0" selected>1.0x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- ONGLET 2 : Profils prédéfinis -->
+    <div id="tab-profiles" class="tab-content">
+        <div class="section-title">Profils Prédéfinis</div>
+        
+        <div class="profile-card" id="profile-dyslexia">
+            <div class="profile-title"><span>📖</span> Profil Dyslexie</div>
+            <div class="profile-desc">Police adaptée, interlignage 1.5 et espacement des lettres.</div>
+        </div>
+
+        <div class="profile-card" id="profile-visually-impaired">
+            <div class="profile-title"><span>👁️</span> Malvoyance & Contraste</div>
+            <div class="profile-desc">Mode contraste élevé, texte agrandi à 140% et curseur XXL.</div>
+        </div>
+
+        <div class="profile-card" id="profile-keyboard">
+            <div class="profile-title"><span>⌨️</span> Navigation Clavier</div>
+            <div class="profile-desc">Surlignage fort du focus clavier et liens soulignés.</div>
+        </div>
+
+        <div class="section-title">Personnalisation</div>
+        <button id="btn-save-profile"><span>💾</span> Sauvegarder mon profil sur-mesure</button>
+        <button id="btn-load-profile"><span>📂</span> Charger mon profil sur-mesure</button>
+    </div>
+
+    <button id="btn-reset"><span>🔄</span> Réinitialiser tout</button>
+
+    <!-- Fichier JS externe -->
     <script src="popup.js"></script>
 </body>
 
