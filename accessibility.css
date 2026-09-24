@@ -1,0 +1,22 @@
+/**
+ * Sync-Technology-Accessibility-Plus
+ * Styles for high contrast and visual enhancements.
+ */
+
+/* Mode Haut Contraste */
+body.accessibility-high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.accessibility-high-contrast a {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-high-contrast button, 
+body.accessibility-high-contrast input {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
