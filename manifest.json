@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Sync Technology Accessibility Plus",
+  "version": "1.0",
+  "description": "Open-source accessibility components and visual comfort tools.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["accessibility-plus.js"],
+      "css": ["accessibility.css"]
+    }
+  ]
+}
