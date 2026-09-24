@@ -5,16 +5,16 @@
     <title>Sync Technology - Accessibility Plus</title>
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #2563eb;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #334155;
-            --border: #e2e8f0;
+            --st-blue-primary: #00A8FF;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
         }
 
         body { 
-            width: 260px; 
+            width: 280px; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             padding: 14px; 
             margin: 0; 
@@ -26,12 +26,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border);
         }
 
-        /* On force une taille propre et fixe pour le logo dans la popup */
         .header img {
             width: 32px;
             height: 32px;
@@ -41,24 +40,57 @@
         .header h3 { 
             font-size: 13px; 
             margin: 0; 
-            color: var(--primary); 
+            color: var(--text); 
             font-weight: 700;
-            line-height: 1.2;
         }
 
         .header span {
             font-weight: 400; 
-            color: #64748b; 
+            color: var(--st-blue-primary); 
             font-size: 11px;
         }
 
         .section-title { 
             font-size: 10px; 
             font-weight: 700; 
-            color: #94a3b8; 
+            color: var(--st-blue-primary); 
             margin: 10px 0 6px 0; 
             text-transform: uppercase; 
             letter-spacing: 0.5px;
+        }
+
+        .control-group {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--st-blue-primary);
+            cursor: pointer;
+        }
+
+        select {
+            width: 100%;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 11px;
+            cursor: pointer;
         }
 
         button { 
@@ -79,24 +111,24 @@
         }
 
         button:hover { 
-            background: #f1f5f9; 
-            border-color: #cbd5e1;
-            color: var(--accent);
+            background: #2563eb; 
+            border-color: var(--st-blue-primary);
+            color: #ffffff;
         }
 
         #btn-reset { 
-            background: #fef2f2; 
-            color: #dc2626; 
-            border-color: #fecaca; 
+            background: rgba(239, 68, 68, 0.1); 
+            color: #fca5a5; 
+            border-color: rgba(239, 68, 68, 0.3); 
             font-weight: 600; 
             margin-top: 10px;
             justify-content: center;
         }
         
         #btn-reset:hover { 
-            background: #fee2e2; 
-            border-color: #f87171;
-            color: #b91c1c;
+            background: #dc2626; 
+            color: #ffffff;
+            border-color: #dc2626;
         }
     </style>
 </head>
@@ -112,12 +144,32 @@
     <div class="section-title">Visibilité & Confort</div>
     <button id="btn-contrast"><span>🌓</span> Mode Contraste</button>
     <button id="btn-underline"><span>🔗</span> Souligner les liens</button>
-    <button id="btn-cursor"><span>🖱️</span> Curseur XXL</button>
-    
-    <div class="section-title">Typographie</div>
-    <button id="btn-increase"><span>➕</span> Agrandir le texte</button>
-    <button id="btn-decrease"><span>➖</span> Réduire le texte</button>
     <button id="btn-dyslexic"><span>📖</span> Police Dyslexique</button>
+
+    <div class="section-title">Ajustements Avancés</div>
+    
+    <div class="control-group">
+        <div class="control-label">
+            <span>Taille du texte</span>
+            <span id="text-size-value">100%</span>
+        </div>
+        <input type="range" id="range-text-size" min="100" max="180" step="10" value="100">
+    </div>
+
+    <!-- Bouton pour activer le curseur -->
+    <button id="btn-toggle-cursor"><span>🖱️</span> Activer le curseur XXL</button>
+    
+    <!-- Conteneur des tailles qui s'affiche dynamiquement -->
+    <div class="control-group" id="cursor-options-container" style="display: none;">
+        <div class="control-label">
+            <span>Taille du curseur</span>
+        </div>
+        <select id="select-cursor-size">
+            <option value="lg">Grand (L)</option>
+            <option value="xl">Très Grand (XL)</option>
+            <option value="xxl" selected>XXL (Maximum)</option>
+        </select>
+    </div>
     
     <button id="btn-reset">🔄 Réinitialiser tout</button>
     

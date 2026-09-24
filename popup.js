@@ -1,71 +1,80 @@
-// Fonction utilitaire pour injecter le CSS et exécuter une action sur l'onglet actif
-async function runAccessibilityAction(actionFunction) {
+async function sendAction(actionName, value = null) {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    
-    chrome.scripting.insertCSS({
-        target: { tabId: tab.id },
-        files: ["accessibility.css"]
-    }, () => {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: actionFunction
+    if (tab?.id) {
+        chrome.tabs.sendMessage(tab.id, { action: actionName, value: value }).catch(() => {
+            // Si le content script n'est pas encore injecté, on l'injecte à la volée
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                files: ["content.js"]
+            }, () => {
+                chrome.tabs.sendMessage(tab.id, { action: actionName, value: value });
+            });
         });
-    });
+    }
 }
 
 // 1. Contraste
 document.getElementById('btn-contrast').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        document.body.classList.toggle('accessibility-high-contrast');
-    });
+    sendAction('toggle-contrast');
 });
 
 // 2. Souligner les liens
 document.getElementById('btn-underline').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        document.body.classList.toggle('accessibility-underline-links');
-    });
+    sendAction('toggle-underline');
 });
 
-// 3. Curseur XXL
-document.getElementById('btn-cursor').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        document.body.classList.toggle('accessibility-large-cursor');
-    });
-});
-
-// 4. Agrandir le texte
-document.getElementById('btn-increase').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        const currentSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
-        document.documentElement.style.fontSize = (currentSize * 1.1) + 'px';
-    });
-});
-
-// 5. Réduire le texte
-document.getElementById('btn-decrease').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        const currentSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
-        document.documentElement.style.fontSize = (currentSize / 1.1) + 'px';
-    });
-});
-
-// 6. Police Dyslexique
+// 3. Police Dyslexique
 document.getElementById('btn-dyslexic').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        document.body.classList.toggle('accessibility-dyslexic');
-    });
+    sendAction('toggle-dyslexic');
 });
 
-// 7. Réinitialiser tout
+// 4. Slider de Texte
+const textSizeSlider = document.getElementById('range-text-size');
+const textSizeValue = document.getElementById('text-size-value');
+
+textSizeSlider.addEventListener('input', (e) => {
+    const val = e.target.value;
+    textSizeValue.textContent = val + '%';
+    sendAction('set-text-size', val);
+});
+
+// 5. Gestion du Curseur XXL
+const btnToggleCursor = document.getElementById('btn-toggle-cursor');
+const cursorContainer = document.getElementById('cursor-options-container');
+const selectCursorSize = document.getElementById('select-cursor-size');
+
+let cursorActive = false;
+
+btnToggleCursor.addEventListener('click', () => {
+    cursorActive = !cursorActive;
+    if (cursorActive) {
+        btnToggleCursor.style.background = '#2563eb';
+        btnToggleCursor.style.borderColor = 'var(--st-blue-primary)';
+        cursorContainer.style.display = 'block';
+        sendAction('set-cursor', selectCursorSize.value);
+    } else {
+        btnToggleCursor.style.background = '';
+        btnToggleCursor.style.borderColor = '';
+        cursorContainer.style.display = 'none';
+        sendAction('set-cursor', 'normal');
+    }
+});
+
+selectCursorSize.addEventListener('change', (e) => {
+    if (cursorActive) {
+        sendAction('set-cursor', e.target.value);
+    }
+});
+
+// 6. Réinitialiser tout
 document.getElementById('btn-reset').addEventListener('click', () => {
-    runAccessibilityAction(() => {
-        document.body.classList.remove(
-            'accessibility-high-contrast', 
-            'accessibility-underline-links', 
-            'accessibility-large-cursor', 
-            'accessibility-dyslexic'
-        );
-        document.documentElement.style.fontSize = '';
-    });
+    textSizeSlider.value = 100;
+    textSizeValue.textContent = '100%';
+    cursorActive = false;
+    btnToggleCursor.style.background = '';
+    btnToggleCursor.style.borderColor = '';
+    cursorContainer.style.display = 'none';
+    selectCursorSize.value = 'xxl';
+
+    sendAction('reset-all');
 });
