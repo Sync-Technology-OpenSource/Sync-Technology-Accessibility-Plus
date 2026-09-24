@@ -4,17 +4,29 @@
     <meta charset="UTF-8">
     <title>Accessibility Plus</title>
     <style>
-        body { width: 240px; font-family: sans-serif; padding: 12px; margin: 0; background: #f9f9f9; }
-        h3 { font-size: 14px; margin-top: 0; color: #333; text-align: center; }
-        button { width: 100%; margin-bottom: 8px; padding: 8px; cursor: pointer; background: #fff; border: 1px solid #ccc; border-radius: 4px; font-weight: 500; transition: background 0.2s; }
+        body { width: 250px; font-family: sans-serif; padding: 12px; margin: 0; background: #f9f9f9; }
+        h3 { font-size: 14px; margin-top: 0; margin-bottom: 10px; color: #333; text-align: center; }
+        .section-title { font-size: 11px; font-weight: bold; color: #666; margin: 8px 0 4px 0; text-transform: uppercase; }
+        button { width: 100%; margin-bottom: 6px; padding: 7px; cursor: pointer; background: #fff; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; font-weight: 500; transition: background 0.2s; text-align: left; padding-left: 10px; }
         button:hover { background: #eaeaea; }
+        #btn-reset { background: #ffebee; color: #c62828; border-color: #ef9a9a; text-align: center; font-weight: bold; margin-top: 6px; }
+        #btn-reset:hover { background: #ffcdd2; }
     </style>
 </head>
 <body>
     <h3>Accessibility Plus</h3>
-    <button id="btn-contrast">Mode Contraste</button>
-    <button id="btn-increase">Agrandir le texte</button>
-    <button id="btn-decrease">Réduire le texte</button>
+    
+    <div class="section-title">Visibilité</div>
+    <button id="btn-contrast">🌓 Mode Contraste</button>
+    <button id="btn-underline">🔗 Souligner les liens</button>
+    <button id="btn-cursor">🖱️ Curseur XXL</button>
+    
+    <div class="section-title">Typographie</div>
+    <button id="btn-increase">➕ Agrandir le texte</button>
+    <button id="btn-decrease">➖ Réduire le texte</button>
+    <button id="btn-dyslexic">📖 Police Dyslexique</button>
+    
+    <button id="btn-reset">🔄 Réinitialiser tout</button>
     
     <script src="popup.js"></script>
 </body>
