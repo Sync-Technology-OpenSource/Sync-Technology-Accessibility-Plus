@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Accessibility Plus</title>
     <style>
-        body { width: 220px; font-family: sans-serif; padding: 10px; }
-        button { width: 100%; margin-bottom: 8px; padding: 6px; cursor: pointer; }
+        body { width: 240px; font-family: sans-serif; padding: 12px; margin: 0; background: #f9f9f9; }
+        h3 { font-size: 14px; margin-top: 0; color: #333; text-align: center; }
+        button { width: 100%; margin-bottom: 8px; padding: 8px; cursor: pointer; background: #fff; border: 1px solid #ccc; border-radius: 4px; font-weight: 500; transition: background 0.2s; }
+        button:hover { background: #eaeaea; }
     </style>
 </head>
 <body>
     <h3>Accessibility Plus</h3>
-    <button id="btn-contrast">Toggle High Contrast</button>
-    <button id="btn-increase">Increase Text Size</button>
+    <button id="btn-contrast">Mode Contraste</button>
+    <button id="btn-increase">Agrandir le texte</button>
+    <button id="btn-decrease">Réduire le texte</button>
     
     <script src="popup.js"></script>
 </body>
