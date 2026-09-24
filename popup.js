@@ -13,6 +13,52 @@ async function sendAction(actionName, value = null) {
     }
 }
 
+// Références globales des éléments de la popup
+const textSizeSlider = document.getElementById('range-text-size');
+const textSizeValue = document.getElementById('text-size-value');
+const btnToggleCursor = document.getElementById('btn-toggle-cursor');
+const cursorContainer = document.getElementById('cursor-options-container');
+const selectCursorSize = document.getElementById('select-cursor-size');
+const btnReadPage = document.getElementById('btn-read-page');
+const selectSpeechRate = document.getElementById('select-speech-rate');
+
+let cursorActive = false;
+let readingActive = false;
+
+// Au chargement de la popup
+document.addEventListener('DOMContentLoaded', async () => {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    
+    // 1. Charger tous les paramètres enregistrés pour initialiser l'UI de la popup
+    chrome.storage.sync.get(['textSize', 'cursorSize', 'contrast', 'underline', 'dyslexic'], (data) => {
+        if (data.textSize && textSizeSlider && textSizeValue) {
+            textSizeSlider.value = data.textSize;
+            textSizeValue.textContent = data.textSize + '%';
+        }
+        if (data.cursorSize && data.cursorSize !== 'normal') {
+            if (btnToggleCursor && cursorContainer && selectCursorSize) {
+                cursorActive = true;
+                btnToggleCursor.style.background = '#2563eb';
+                cursorContainer.style.display = 'block';
+                selectCursorSize.value = data.cursorSize;
+            }
+        }
+    });
+
+    if (!tab?.id) return;
+
+    // 2. Vérifier auprès du content script si une lecture audio est en cours
+    chrome.tabs.sendMessage(tab.id, { action: "get-status" }, (response) => {
+        if (response && response.isReading) {
+            if (btnReadPage) {
+                btnReadPage.style.background = '#dc2626';
+                btnReadPage.querySelector('span').textContent = '⏹️ Arrêter la lecture';
+                readingActive = true;
+            }
+        }
+    });
+});
+
 // 1. Contraste
 document.getElementById('btn-contrast').addEventListener('click', () => {
     sendAction('toggle-contrast');
@@ -29,9 +75,6 @@ document.getElementById('btn-dyslexic').addEventListener('click', () => {
 });
 
 // 4. Slider de Texte
-const textSizeSlider = document.getElementById('range-text-size');
-const textSizeValue = document.getElementById('text-size-value');
-
 textSizeSlider.addEventListener('input', (e) => {
     const val = e.target.value;
     textSizeValue.textContent = val + '%';
@@ -39,12 +82,6 @@ textSizeSlider.addEventListener('input', (e) => {
 });
 
 // 5. Gestion du Curseur XXL
-const btnToggleCursor = document.getElementById('btn-toggle-cursor');
-const cursorContainer = document.getElementById('cursor-options-container');
-const selectCursorSize = document.getElementById('select-cursor-size');
-
-let cursorActive = false;
-
 btnToggleCursor.addEventListener('click', () => {
     cursorActive = !cursorActive;
     if (cursorActive) {
@@ -79,17 +116,18 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     sendAction('reset-all');
 });
 
-const btnReadPage = document.getElementById('btn-read-page');
-const btnStopAudio = document.getElementById('btn-stop-audio');
-
+// Contrôle de la lecture audio avec vitesse
 btnReadPage.addEventListener('click', () => {
-    sendAction('read-page');
-    btnReadPage.style.display = 'none';
-    btnStopAudio.style.display = 'flex';
-});
-
-btnStopAudio.addEventListener('click', () => {
-    sendAction('stop-audio');
-    btnStopAudio.style.display = 'none';
-    btnReadPage.style.display = 'flex';
+    readingActive = !readingActive;
+    const rate = selectSpeechRate.value;
+    
+    if (readingActive) {
+        btnReadPage.style.background = '#dc2626'; // Rouge pour arrêter
+        btnReadPage.querySelector('span').textContent = '⏹️ Arrêter la lecture';
+        sendAction('read-page', rate);
+    } else {
+        btnReadPage.style.background = '';
+        btnReadPage.querySelector('span').textContent = '🔊 Lire la page';
+        sendAction('stop-audio');
+    }
 });

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Sync Technology Accessibility Plus",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Module d'accessibilité web avancé",
   "permissions": [
     "activeTab",
@@ -18,5 +18,27 @@
       "js": ["content.js"],
       "css": ["accessibility.css"]
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Y"
+      }
+    },
+    "read-page": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+R"
+      },
+      "description": "Lire/Arrêter la lecture audio de la page"
+    },
+    "toggle-contrast": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C"
+      },
+      "description": "Activer/Désactiver le mode contraste"
+    }
+  }
 }

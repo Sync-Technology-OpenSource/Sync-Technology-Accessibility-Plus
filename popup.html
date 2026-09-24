@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Sync Technology - Accessibility Plus</title>
@@ -13,12 +14,12 @@
             --border: #334155;
         }
 
-        body { 
-            width: 280px; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            padding: 14px; 
-            margin: 0; 
-            background: var(--bg); 
+        body {
+            width: 280px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 14px;
+            margin: 0;
+            background: var(--bg);
             color: var(--text);
         }
 
@@ -37,25 +38,25 @@
             object-fit: contain;
         }
 
-        .header h3 { 
-            font-size: 13px; 
-            margin: 0; 
-            color: var(--text); 
+        .header h3 {
+            font-size: 13px;
+            margin: 0;
+            color: var(--text);
             font-weight: 700;
         }
 
         .header span {
-            font-weight: 400; 
-            color: var(--st-blue-primary); 
+            font-weight: 400;
+            color: var(--st-blue-primary);
             font-size: 11px;
         }
 
-        .section-title { 
-            font-size: 10px; 
-            font-weight: 700; 
-            color: var(--st-blue-primary); 
-            margin: 10px 0 6px 0; 
-            text-transform: uppercase; 
+        .section-title {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--st-blue-primary);
+            margin: 10px 0 6px 0;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -93,45 +94,46 @@
             cursor: pointer;
         }
 
-        button { 
-            width: 100%; 
-            margin-bottom: 6px; 
-            padding: 8px 10px; 
-            cursor: pointer; 
-            background: var(--card-bg); 
-            border: 1px solid var(--border); 
-            border-radius: 6px; 
-            font-size: 12px; 
-            font-weight: 500; 
+        button {
+            width: 100%;
+            margin-bottom: 6px;
+            padding: 8px 10px;
+            cursor: pointer;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
             color: var(--text);
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s ease; 
+            transition: all 0.2s ease;
         }
 
-        button:hover { 
-            background: #2563eb; 
+        button:hover {
+            background: #2563eb;
             border-color: var(--st-blue-primary);
             color: #ffffff;
         }
 
-        #btn-reset { 
-            background: rgba(239, 68, 68, 0.1); 
-            color: #fca5a5; 
-            border-color: rgba(239, 68, 68, 0.3); 
-            font-weight: 600; 
+        #btn-reset {
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.3);
+            font-weight: 600;
             margin-top: 10px;
             justify-content: center;
         }
-        
-        #btn-reset:hover { 
-            background: #dc2626; 
+
+        #btn-reset:hover {
+            background: #dc2626;
             color: #ffffff;
             border-color: #dc2626;
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <img src="icons/icon.png" alt="Sync Technology Logo">
@@ -140,14 +142,14 @@
             <span>Accessibility Plus</span>
         </div>
     </div>
-    
+
     <div class="section-title">Visibilité & Confort</div>
     <button id="btn-contrast"><span>🌓</span> Mode Contraste</button>
     <button id="btn-underline"><span>🔗</span> Souligner les liens</button>
     <button id="btn-dyslexic"><span>📖</span> Police Dyslexique</button>
 
     <div class="section-title">Ajustements Avancés</div>
-    
+
     <div class="control-group">
         <div class="control-label">
             <span>Taille du texte</span>
@@ -158,7 +160,7 @@
 
     <!-- Bouton pour activer le curseur -->
     <button id="btn-toggle-cursor"><span>🖱️</span> Activer le curseur XXL</button>
-    
+
     <!-- Conteneur des tailles qui s'affiche dynamiquement -->
     <div class="control-group" id="cursor-options-container" style="display: none;">
         <div class="control-label">
@@ -171,11 +173,19 @@
         </select>
     </div>
     <div class="section-title">Audio & Assistance</div>
-<button id="btn-read-page"><span>🔊</span> Lire la page</button>
-<button id="btn-stop-audio" style="display: none; background: rgba(239, 68, 68, 0.1); color: #fca5a5; border-color: rgba(239, 68, 68, 0.3);"><span>⏹️</span> Arrêter la lecture</button>
-    
+    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <button id="btn-read-page" style="flex: 2;"><span>🔊 Lire la page</span></button>
+        <select id="select-speech-rate"
+            style="flex: 1; background: var(--st-bg-card); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px;">
+            <option value="0.75">0.75x</option>
+            <option value="1.0" selected>1.0x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+        </select>
+    </div>
     <button id="btn-reset">🔄 Réinitialiser tout</button>
-    
+
     <script src="popup.js"></script>
 </body>
+
 </html>
