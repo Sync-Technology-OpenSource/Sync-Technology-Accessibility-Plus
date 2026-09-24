@@ -1,17 +1,20 @@
 # Sync Technology Accessibility Plus
-
-The target of Sync-Technology-Accessibility-Plus functionalities is to enhance user experience on web sites, which are already accessible, or still accessible. Sync-Technology-Accessibility-Plus provides these services:
-- **Typography**: Users may change font size, spacing between words, characters, and lines, or switch to an OpenDyslexic layout.
-- **Visual Comfort**: Color contrast adjustments, cursor adaptation, and reading guides.
-- **Navigation**: Simplified interface elements to assist users with specific needs.
-
-## 🚀 About the Project
-Developed under the **Sync-Technology-OpenSource** ecosystem, this module aims to bring inclusive design and universal accessibility to all our web platforms and digital services.
-
+ 
+The goal of Sync-Technology-Accessibility-Plus is to enhance the user experience on websites by providing powerful accessibility and comfort features under the official Sync Technology branding.
+ 
+## 🚀 Features
+ 
+* **Visual Comfort:** High contrast mode, link underlining, and custom font sizing.
+* **Typography:** OpenDyslexic font support to assist users with reading difficulties.
+* **Cursor Adaptation:** Custom progressive XXL cursor sizes for better visibility and navigation.
+* **Audio Assistance:** Built-in text-to-speech page reading functionality to read web content aloud.
 ## 📁 Repository Structure
-- `src/`: Source code of the accessibility components and scripts.
-- `docs/`: Documentation and integration guides.
-- `build/`: Compiled assets ready for deployment.
-
+ 
+* `manifest.json` : Extension manifest configuration (Manifest V3).
+* `popup.html` & `popup.js` : Extension popup interface and logic.
+* `content.js` : Core accessibility logic injected into web pages via messaging.
+* `accessibility.css` : Stylesheets for visual and cursor adaptations.
+* `icons/` : Official brand assets and extension icons.
 ## 📄 License
-This project is open source and available under the [MIT License](LICENSE).
+ 
+This project is open-source and available under the [MIT License](LICENSE).
