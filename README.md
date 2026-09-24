@@ -1,4 +1,4 @@
-# Sync-Technology-Accessibility-Plus
+# Sync Technology Accessibility Plus
 
 The target of Sync-Technology-Accessibility-Plus functionalities is to enhance user experience on web sites, which are already accessible, or still accessible. Sync-Technology-Accessibility-Plus provides these services:
 - **Typography**: Users may change font size, spacing between words, characters, and lines, or switch to an OpenDyslexic layout.
