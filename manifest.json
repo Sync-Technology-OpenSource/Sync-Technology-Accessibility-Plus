@@ -40,5 +40,10 @@
       },
       "description": "Activer/Désactiver le mode contraste"
     }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "accessibility-plus@sync-technology.fr"
+    }
   }
 }
